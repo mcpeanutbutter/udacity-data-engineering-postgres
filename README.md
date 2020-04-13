@@ -23,7 +23,7 @@ Unfortunately, only a single in songplay data is augmented with artist_id and so
 
 ## Considerations for CREATE and INSERT statements
 
-* For the fact table (songplays), no unique id is given in the data. I chose to create a unique primary key during ingestion using SERIAL PRIMARY KEY. This key is incremented at insertion time; therefore no conflict management is required.
+* For the fact table (songplays), no unique id is given in the data. I chose to create a unique primary key during ingestion using SERIAL PRIMARY KEY. This key is incremented at insertion time and will therefore never collide. In addition, I require that user_id and start_time are not null (for joining); however, I do not pose the same restrictions on artist_id and song_id as this would reduce the total added data to a single row (see below).
 
 * For the dimension tables (users, songs, artists, time) unique ids are provided in the data. These are used as PRIMARY KEYs. Since they are vital for joins, I set them as NOT NULL. 
 
